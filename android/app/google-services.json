@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1036719407491",
+    "project_id": "maganemoney-495af",
+    "storage_bucket": "maganemoney-495af.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1036719407491:android:c47fe2e4a00d49e2d636b6",
+        "android_client_info": {
+          "package_name": "com.example.magane_money"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1036719407491-8ubbodpm4822ur8cbl2cqfqefip8rl94.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtw3XpPew_mMS2hfu2ijpEGgNe6JICR2I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1036719407491-8ubbodpm4822ur8cbl2cqfqefip8rl94.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
