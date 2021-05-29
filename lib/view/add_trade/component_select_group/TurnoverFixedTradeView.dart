@@ -40,7 +40,7 @@ class TurnoverFixedTradeView extends StatelessWidget {
         leading: IconButton(
           icon: Icon(Icons.clear),
           onPressed: () {
-            sendDataBack(context, nameTrade);
+            sendDataBack(context, nameTradeDefault);
           },
         ),
       ),

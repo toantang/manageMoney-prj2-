@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:magane_money/main_view/background.dart';
+import 'package:magane_money/view/home/home_component/StatisticTradeView.dart';
 import 'package:magane_money/view/home/home_component/set_date.dart';
 
 import 'home_component/tabbar.dart';
@@ -17,6 +18,9 @@ class Home extends StatelessWidget {
             children: [
               MakeTabBar(),
               SetDate(),
+              Expanded(
+                child: StatisticTradeView(),
+              )
             ],
           )
         ],

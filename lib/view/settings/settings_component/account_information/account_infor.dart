@@ -1,13 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class AccountInformation extends StatelessWidget {
-
-  Future<void> init() async {
-    await Firebase.initializeApp();
-  }
 
   Widget _buildListItem(BuildContext context, DocumentSnapshot documentSnapshot) {
     return ListTile(

@@ -1,22 +1,23 @@
 class Schedule {
-  int _scheduleId = 0;
-  int _userId = 0;
+  String _scheduleId = 'noScheduleId';
+  String _userId = 'noUserId';
   String _nameSchedule = 'name schedule';
   double _sumMoneySchedule = 0; // so tien danh cho ke hoach, limited = 10B
   DateTime _dateStartSchedule = new DateTime(2000, 3, 26);
-  DateTime _dateEndSchedule = new DateTime(2000, 3, 26);
+  int _interval = 0;
   String _note = 'note schedule';
   bool _stateSchedule = false; // false là chưa hoàn thành, true là hoàn thành
-  double _progessSchedule = 0; // tiến độ của kế hoạch x%
+  double _progessSchedule = 0.0; // tiến độ của kế hoạch x%
 
-  Schedule({int scheduleId: 0, int userId: 0, String nameSchedule: 'name schedule', double sumMoneySchedule: 0.0, DateTime dateStartSchedule,
-      DateTime dateEndSchedule, String note: 'note schedule', bool stateSchedule: false, double progessSchedule: 0}) {
+  Schedule({String scheduleId: 'noScheduleId', String userId: 'userId', String nameSchedule: 'name schedule',
+        double sumMoneySchedule: 0.0, DateTime dateStartSchedule, int interval: 0,
+        String note: 'note schedule', bool stateSchedule: false, double progessSchedule: 0}) {
     this._scheduleId = scheduleId;
-    this._userId = userId;
+    this._userId = 'userId';
     this._nameSchedule = nameSchedule;
     this._sumMoneySchedule = sumMoneySchedule;
     this._dateStartSchedule = dateStartSchedule;
-    this._dateEndSchedule = dateEndSchedule;
+    this._interval = interval;
     this._note = note;
     this._stateSchedule = stateSchedule;
     this._progessSchedule = progessSchedule;
@@ -29,7 +30,7 @@ class Schedule {
       'nameSchedule': this._nameSchedule,
       'sumMoneySchedule': this._sumMoneySchedule,
       'dateStartSchedule': this._dateStartSchedule,
-      'dateEndSchedule': this._dateEndSchedule,
+      'interval': this._interval,
       'note': this._note,
       'stateSchedule': this._stateSchedule,
       'progessSchedule': this._progessSchedule,
@@ -37,9 +38,9 @@ class Schedule {
   }
 
 
-  int get scheduleId => _scheduleId;
+  String get scheduleId => _scheduleId;
 
-  set scheduleId(int value) {
+  set scheduleId(String value) {
     _scheduleId = value;
   }
 
@@ -79,15 +80,15 @@ class Schedule {
     _nameSchedule = value;
   }
 
-  DateTime get dateEndSchedule => _dateEndSchedule;
+  int get interval => _interval;
 
-  set dateEndSchedule(DateTime value) {
-    _dateEndSchedule = value;
+  set interval(int value) {
+    _interval = value;
   }
 
-  int get userId => _userId;
+  String get userId => _userId;
 
-  set userId(int value) {
+  set userId(String value) {
     _userId = value;
   }
 }

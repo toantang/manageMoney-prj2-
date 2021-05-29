@@ -5,7 +5,7 @@ import 'package:magane_money/main_view/accountBalance.dart';
 import 'package:magane_money/string/string_used.dart';
 import 'package:magane_money/view/home/home.dart';
 import 'package:magane_money/view/chart/chart.dart';
-import 'package:magane_money/view/schedule/schedule.dart';
+import 'package:magane_money/view/schedule/ScheduleView.dart';
 import 'package:magane_money/view/settings//settings.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'main_view/background.dart';

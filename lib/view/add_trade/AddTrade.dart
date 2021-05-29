@@ -15,7 +15,6 @@ import 'package:get/get.dart';
 class AddTrade extends StatelessWidget {
 
   final AddTradeController addTradeController = Get.put((AddTradeController()));
-  final CollectionReference users = FirebaseFirestore.instance.collection('User');
 
   Widget saveButton(BuildContext context) {
     return Container(

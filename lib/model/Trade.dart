@@ -1,14 +1,22 @@
 class Trade {
-  int _tradeId = 0;
-  int _groupTradeId = 0;
+  String _userId = 'userId';
+  String _tradeId = 'tradeId';
+  bool _typeTradeId = false; // typeTradeId = false nếu là chi tiêu, = true nếu là thu vào
+  String _nameTypeTrade = 'expenditure';
+  String _nameGroupTrade = 'no group';
   String _nameTrade = 'name trade';
   double _moneyTrade = 0; // số tiền dành cho giao dịch (tối đa 10B một lần)
   DateTime _dateDelivery = new DateTime(2000, 3, 26); // ngày xảy ra giao dịch
   String _note = 'note trade';
 
-  Trade({int tradeId: 0, int groupTradeId: 0, String nameTrade, double moneyTrade: 0.0, DateTime dateDelivery, String note: 'note trade'}) {
+  Trade({String userId: 'userId', String tradeId: 'tradeId', bool typeTradeId: false,
+        String nameTypeTrade: 'expenditure', String nameGroupTrade: 'nameGroupTrade', String nameTrade:  'nameTrade',
+        double moneyTrade: 0.0, DateTime dateDelivery, String note: 'note trade'}) {
+    this._userId = userId;
     this._tradeId = tradeId;
-    this._groupTradeId = groupTradeId;
+    this._typeTradeId = typeTradeId;
+    this._nameTypeTrade = nameTypeTrade;
+    this._nameGroupTrade = nameGroupTrade;
     this._nameTrade = nameTrade;
     this._moneyTrade = moneyTrade;
     this._dateDelivery = dateDelivery;
@@ -17,13 +25,23 @@ class Trade {
 
   Map<String, dynamic> toMap() {
     return {
+      'userId': this._userId,
       'tradeId': this._tradeId,
-      'groupTradeId': this._groupTradeId,
+      'typeTradeId': this._typeTradeId,
+      'nameTypeTrade': this._nameTypeTrade,
+      'nameGroupTrade': this._nameGroupTrade,
       'nameTrade': this._nameTrade,
       'moneyTrade': this._moneyTrade,
       'dateDelivery': this._dateDelivery,
       'note': this._note,
     };
+  }
+
+
+  String get userId => _userId;
+
+  set userId(String value) {
+    _userId = value;
   }
 
   String get note => _note;
@@ -50,16 +68,28 @@ class Trade {
     _nameTrade = value;
   }
 
-  int get groupTradeId => _groupTradeId;
+  String get nameGroupTrade => _nameGroupTrade;
 
-  set groupTradeId(int value) {
-    _groupTradeId = value;
+  set nameGroupTrade(String value) {
+    _nameGroupTrade = value;
   }
 
-  int get tradeId => _tradeId;
+  String get nameTypeTrade => _nameTypeTrade;
 
-  set tradeId(int value) {
+  set nameTypeTrade(String value) {
+    _nameTypeTrade = value;
+  }
+
+  String get tradeId => _tradeId;
+
+  set tradeId(String value) {
     _tradeId = value;
+  }
+
+  bool get typeTradeId => _typeTradeId;
+
+  set typeTradeId(bool value) {
+    _typeTradeId = value;
   }
 }
 

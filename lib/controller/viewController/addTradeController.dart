@@ -1,26 +1,23 @@
 import 'dart:math';
 
-import 'package:flushbar/flushbar.dart';
+import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:magane_money/controller/model_controller/GroupTrade.dart';
 import 'package:magane_money/controller/model_controller/TradeController.dart';
-import 'package:magane_money/controller/model_controller/TypeTradeController.dart';
-import 'package:magane_money/model/GroupTrade.dart';
 import 'package:magane_money/model/Trade.dart';
-import 'package:magane_money/model/TypeTrade.dart';
 import 'package:magane_money/string/string_used.dart';
 import 'package:magane_money/view/add_trade/component_select_group/ExpenditureFixedTradeView.dart';
 import 'package:magane_money/view/add_trade/component_select_group/ExpenditureTradeView.dart';
-
 import 'package:magane_money/view/add_trade/component_select_group/TurnoverFixedTradeView.dart';
 import 'package:magane_money/view/add_trade/component_select_group/TurnoverTradeView.dart';
 
 class AddTradeController extends GetxController {
   var _dataFromGroupTrade; // nhận tên giao dịch dc gửi từ view GroupTrade
-  var _nameTrade = 'Select Trade'.obs; // tên giao dịch
+  var _typeTradeId = false.obs;
+  var _nameTypeTrade = "noname".obs;
   var _nameGroupTrade = "nameGroupTrade".obs;
+  var _nameTrade = 'Select Trade'.obs; // tên giao dịch
   var _moneyTrade = 0.0.obs;
   var _date = DateTime.now().obs;
   var _note = "no note".obs;
@@ -31,13 +28,21 @@ class AddTradeController extends GetxController {
 
   final List<Widget> list = [ExpenditureFixedTradeView(), ExpenditureTradeView(), TurnoverFixedTradeView(), TurnoverTradeView(),];
 
-  TypeTrade _typeTrade = new TypeTrade();
-  GroupTrade _groupTrade = new GroupTrade();
   Trade _trade = new Trade();
-  TypeTradeController typeTradeController = new TypeTradeController();
-  GroupTradeController groupTradeController = new GroupTradeController();
   TradeController tradeController = new TradeController();
 
+  void changeTypeTradeId() {
+    if (this._indexDropdownSelectTypeTrade <= 1) {
+      this.typeTradeId = false;
+    }
+    else {
+      this.typeTradeId = true;
+    }
+  }
+
+  void changeNameTypeTradeId() {
+    this.nameTypeTrade = listTypeTrade[this.indexDropdownSelectTypeTrade];
+  }
 
   void nameTradeSelected(Map<String, String> data) {
     this._nameTrade.value = data['name'];
@@ -49,7 +54,7 @@ class AddTradeController extends GetxController {
 
   void getMoney(BuildContext context) {
     String s = this._textEditingControllerMoney.text;
-    if (s == null) {
+    if (s == '') {
       showFlushbarError(context, 'inputmoney is null');
     }
     else {
@@ -60,6 +65,7 @@ class AddTradeController extends GetxController {
   void getNote() {
     this.note = this._textEditingControllerNote.text;
   }
+
   void dateTradeSelected(DateTime date) {
     this._date.value = date;
   }
@@ -122,6 +128,13 @@ class AddTradeController extends GetxController {
     return 1;
   }
 
+  int checkNameTradeSelected() {
+    if (this.nameTrade == nameTradeDefault) {
+      return 0;
+    }
+    return 1;
+  }
+
   void showFlushbarError(BuildContext context, String noti) async {
     final flushbarEmailnotRight = Flushbar(
       duration: Duration(seconds: 3),
@@ -149,34 +162,43 @@ class AddTradeController extends GetxController {
   void checkAndInsertTrade(BuildContext context) {
     int x = checkInputMoney();
     int y = checkInputNote();
+    int z = checkNameTradeSelected();
     if (x < 1) {
       showFlushbarError(context, listErrorInputMoney[x.abs()]);
     }
     else if(y < 1) {
       showFlushbarError(context, listErrorInputNote[y.obs()]);
     }
-
+    else if(z < 1) {
+      showFlushbarError(context, listErrorTradeSelected[z.obs()]);
+    }
     else {
+      this._trade.typeTradeId = this.typeTradeId;
+      this._trade.nameTypeTrade = this.nameTypeTrade;
+      this._trade.nameGroupTrade = this.nameGroupTrade;
       this._trade.nameTrade = this.nameTrade;
       this._trade.moneyTrade = this.moneyTrade;
       this._trade.dateDelivery = this.date;
       this._trade.note = this.note;
 
-      this._typeTrade.typeTrade = false;
-      this._typeTrade.nameTypeTrade = 'chi tieu';
-      this._typeTrade.userId = 1;
-
-      this._groupTrade.nameGroupTrade = this.nameGroupTrade;
-
-
-      typeTradeController.insertTypeTrade(this._typeTrade);
-      groupTradeController.insertGroupTrade(this._groupTrade);
-      tradeController.insertTransaction(this._trade, typeTradeController.idTypeTradeDocument, groupTradeController.idGroupTrade);
-
-      print("luu thanh cong");
+      tradeController.insertTrade(this._trade);
     }
+    /*DocumentReference docRef = await FirebaseFirestore.instance.collection('User').add(this._trade.toMap());
+    print(docRef.id);
+    FirebaseFirestore.instance.collection('gameLevels').doc(docRef.id).collection('typeTrade').add(this._trade.toMap());*/
   }
 
+  get nameTypeTrade => _nameTypeTrade.value;
+
+  set nameTypeTrade(value) {
+    _nameTypeTrade.value = value;
+  }
+
+  get typeTradeId => _typeTradeId.value;
+
+  set typeTradeId(value) {
+    _typeTradeId.value = value;
+  }
 
   TextEditingController get textEditingControllerMoney =>
       _textEditingControllerMoney;

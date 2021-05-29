@@ -31,7 +31,7 @@ class CalendarState extends State<Calendar>{
             leading: IconButton(
               icon: Icon(Icons.clear),
               onPressed: () {
-                Navigator.pop(context, 'Select Date');
+                Navigator.pop(context, this._date);
               },
             ),
             title: Text('Calendar'),

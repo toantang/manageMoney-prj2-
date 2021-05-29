@@ -4,7 +4,6 @@ import 'package:magane_money/controller/bottom_icon_controller.dart';
 import 'package:magane_money/other_things/other.dart';
 import 'package:magane_money/view/chart/chart.dart';
 import 'package:magane_money/view/home/home.dart';
-import 'package:magane_money/view/schedule/schedule.dart';
 import 'package:magane_money/view/settings//settings.dart';
 
 import 'package:get/get.dart';

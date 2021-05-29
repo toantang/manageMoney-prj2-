@@ -28,7 +28,7 @@ dependencies:
   table_calendar: ^2.3.3
   dynamic_treeview: ^1.0.0+2
   intl: ^0.17.0
-  flushbar: ^1.10.4
+  another_flushbar: ^1.10.22
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -52,6 +52,7 @@ dev_dependencies:
 flutter:
   assets:
     - assets/background/
+    - assets/images/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

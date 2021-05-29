@@ -53,7 +53,7 @@ class Shopping extends StatelessWidget {
           EdgeInsets.only(left: 16, top: 0, bottom: 0)),
       onTap: (m) {
         String s = m['title'];
-        Map<String, String> data = {'name': s, 'groupName': 'Shopping', 'frequency': '0'};
+        Map<String, String> data = {'name': s, 'nameGroupTrade': 'Shopping', 'frequency': '0'};
         Navigator.pop(context, data);
       },
       width: MediaQuery.of(context).size.width,

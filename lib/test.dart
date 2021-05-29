@@ -1,87 +1,62 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class Name {
-  String _firstName = "first name";
-  String _lastName = 'last name';
+class ListDataX extends GetxController {
+  List<int> numbers = List<int>.from([0,1,2,3]);
 
-  Name({String firstName: 'firstName', String lastName: 'lastName'}) {
-    this._firstName = firstName;
-    this._lastName = lastName;
+  void httpCall() async {
+    await Future.delayed(Duration(seconds: 1),
+            () => numbers.add(numbers.last + 1)
+    );
+    update();
   }
 
-  Map<String, dynamic> toMap() {
-    return {
-      'firstName': this._firstName,
-      'lastName': this._lastName,
-    };
-  }
-
-  String get firstname => _firstName;
-
-  set firstname(String value) {
-    _firstName = value;
-  }
-
-  String get lastName => _lastName;
-
-  set lastName(String value) {
-    _lastName = value;
+  void reset() {
+    numbers = numbers.sublist(0, 3);
+    update();
   }
 }
 
-class Person {
-  int _age = 0;
-  Name _name = new Name();
-  DateTime _birthday = DateTime.now();
-  Map<String, dynamic> toMap() {
-    return {
-      'age': this._age,
-      'name': this._name,
-      'birthday': this._birthday,
-    };
+class GetXListviewPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    ListDataX dx = Get.put(ListDataX());
+    print('Page ** rebuilt');
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              flex: 8,
+              child: GetBuilder<ListDataX>(
+                builder: (_dx) => ListView.builder(
+                    itemCount: _dx.numbers.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text('Number: ${_dx.numbers[index]}'),
+                      );
+                    }),
+              ),
+            ),
+            Expanded(
+                flex: 1,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    RaisedButton(
+                      child: Text('Http Request'),
+                      onPressed: dx.httpCall,
+                    ),
+                    RaisedButton(
+                      child: Text('Reset'),
+                      onPressed: dx.reset,
+                    )
+                  ],
+                )
+            )
+          ],
+        ),
+      ),
+    );
   }
-
-  Person({int age: 0, Name name, DateTime birthday}) {
-    this._age = age;
-    this._name = name;
-    this._birthday = birthday;
-  }
-
-  int get age => _age;
-
-  set age(int value) {
-    _age = value;
-  }
-
-  DateTime get birthday => _birthday;
-
-  set birthday(DateTime value) {
-    _birthday = value;
-  }
-}
-
-class Student extends Person {
-  int _id = 0;
-  Map<String, dynamic> toMap() {
-    return {
-      'id': this._id,
-    };
-  }
-
-  Student({int id: 9,}) : super (age: 19, name: Name(firstName: 'toan', lastName: 'tang')){
-    this._id = id;
-  }
-
-  int get id => _id;
-
-  set id(int value) {
-    _id = value;
-  }
-}
-
-
-
-void main() {
-  Student student = new Student(id: 1);
-  print(student._name._lastName);
-  print(student.birthday);
 }

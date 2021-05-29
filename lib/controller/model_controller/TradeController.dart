@@ -3,35 +3,18 @@ import 'package:magane_money/model/Trade.dart';
 
 class TradeController {
 
+  final CollectionReference _tradeCollection = FirebaseFirestore.instance.collection('Trade');
 
-  Future<void> insertTransaction(Trade trade, String idTypeTrade, String idGroupTrade) async {
-    final CollectionReference tradeCollection = FirebaseFirestore.instance
-        .collection('TypeTrade')
-        .doc(idTypeTrade)
-        .collection('groupTrade')
-        .doc(idGroupTrade)
-        .collection('Trade');
-
-    tradeCollection.add(trade.toMap());
+  Future<DocumentReference> insertTrade(Trade trade) async {
+    DocumentReference documentReference = await this._tradeCollection.add(trade.toMap());
+    return documentReference;
   }
 
-  Future<void> updateTrade(Trade trade, int id, String idTypeTrade, String idGroupTrade) async {
-    final CollectionReference tradeCollection = FirebaseFirestore.instance
-        .collection('TypeTrade')
-        .doc(idTypeTrade)
-        .collection('groupTrade')
-        .doc(idGroupTrade)
-        .collection('Trade');
-    tradeCollection.doc(id.toString()).update(trade.toMap());
+  Future<void> updateTrade(String id, Trade trade) async {
+    this._tradeCollection.doc(id.toString()).update(trade.toMap());
   }
 
   Future<void> deleteTrade(int id, String idTypeTrade, String idGroupTrade) async {
-    final CollectionReference tradeCollection = FirebaseFirestore.instance
-        .collection('TypeTrade')
-        .doc(idTypeTrade)
-        .collection('groupTrade')
-        .doc(idGroupTrade)
-        .collection('Trade');
-    tradeCollection.doc(id.toString()).delete();
+    this._tradeCollection.doc(id.toString()).delete();
   }
 }
