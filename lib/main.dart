@@ -4,7 +4,7 @@ import 'package:magane_money/controller/bottom_icon_controller.dart';
 import 'package:magane_money/main_view/accountBalance.dart';
 import 'package:magane_money/string/string_used.dart';
 import 'package:magane_money/view/home/home.dart';
-import 'package:magane_money/view/chart/chart.dart';
+import 'package:magane_money/view/chart/ChartView.dart';
 import 'package:magane_money/view/schedule/ScheduleView.dart';
 import 'package:magane_money/view/settings//settings.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -38,17 +38,15 @@ class MyHomePage extends StatefulWidget {
 }
 class _MyHomePage extends State<MyHomePage> {
 
-  List<Widget> listView = [Home(), Chart(), Schedule(), Settings()];
+  List<Widget> listView = [Home(), ChartView(), ScheduleView(), Settings()];
 
   @override
   Widget build(BuildContext context) {
     Get.put(BottomIconController());
     final BottomIconController c = Get.find();
-    print("dong 39 claas main");
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-
       appBar: AppBar(
         title: Obx(() {
           return Text(listNameBottomNavigationBar[c.currentIndexView.value]);
@@ -60,7 +58,7 @@ class _MyHomePage extends State<MyHomePage> {
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              AccountBalance(),
+              //AccountBalance(),
               Expanded(child: GetBuilder<BottomIconController>(
                 builder: (context) {
                   return PageView(

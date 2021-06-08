@@ -9,6 +9,7 @@ const String kHintTextInputMoney = "số tiền giao dịch";
 const String kSuffixTextInputMoney = "\$";
 const List<String> listTypeTrade= ["Khoản chi cố định", "Khoản chi không cố định", "Khoản thu cố định",
   "Khoản thu không cố định"];
+const List<String> listNameTypeTrade = ['expenditure fixed', 'expenditure', 'turnover fixed', 'turnover'];
 const String kDefaultSelectGroupTransaction = "Nhóm giao dịch";
 const String kDefaultNote = "Ghi chú";
 const String nameTradeDefault = "Select Trade";
@@ -40,6 +41,9 @@ const List<String> listErrorInputMoney = ["không được để trống số ti
 const List<String> listErrorInputNote = ["ghi chú không quá 100 kí tự"];
 const List<String> listErrorTradeSelected = ['vui lòng chọn tên giao dịch'];
 
+//String used in ScheduleView
+const List<String> listContentTabScheduleView = ['unfinished', 'finished'];
+const String textAddSchedule = 'new schedule';
 //String used in AddScheduleView
 const String kDefaultInputMoneySchedule = "Sum money for your schedulle";
 const String kDefaultNameSchedule = "your schedule's name";
@@ -47,7 +51,12 @@ const List<String> listTimeUnits = ['years', 'months', 'days'];
 const List<String> listtimeUnit = ['year', 'month', 'day'];
 const String kDefaultIntervalSchedule = 'Interval';
 
-//String used in AddScheduleView
+//String used in InformationScheduleView
+const List<String> lisKeySchedule = ['nameSchedule', 'sumMoneySchedule', 'interval',
+  'note', 'progessSchedule', 'dateStartSchedule'];
+const List<String> listUnitOneSchedule = ['', '\$', 'months', '', '%', ''];
+
+/*String used in AddScheduleView
 const List<String> imagesScheduleView = ['assets/images/house.jpg', 'assets/images/car.jpg',
   'assets/images/tech-product.jpg',  'assets/images/travel.jpg', 'assets/images/money.jpg',];
 const List<String> listSub = [
@@ -56,7 +65,7 @@ const List<String> listSub = [
   "Iphone, Laptop, etc. They are very very important and perfect",
   "Travel - If you like traveling, Saving up now",
   "Money - Savaing up to prepare for you future"
-];
+];*/
 
 
 //icon used in InformationTradeView
@@ -68,3 +77,8 @@ const List<Icon> listIconInforTrade = [
 const List<String> listKey = ['nameTrade', 'nameGroupTrade', 'moneyTrade', 'nameTypeTrade', 'note', 'dateDelivery'];
 const List<String> listUpdateItem = ["update name's trade", "update name group of trade",
   "update money",  'update type trade', 'update note',];
+
+//String used in ChartView
+const List<String> listContentTabChartView = ['Expenditure&Turnover', 'Expenditure', 'Turnover',];
+
+//String used in MakeChartView

@@ -29,6 +29,9 @@ dependencies:
   dynamic_treeview: ^1.0.0+2
   intl: ^0.17.0
   another_flushbar: ^1.10.22
+  percent_indicator: ^3.0.1
+  fl_chart: ^0.36.1
+  flutter_svg:
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -43,6 +46,7 @@ dev_dependencies:
   sqflite: ^2.0.0+3
   path:
   path_provider:
+
 
 
 # For information on the generic Dart part of this file, see the

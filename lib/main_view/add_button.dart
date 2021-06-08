@@ -1,3 +1,5 @@
+import 'dart:developer' as developer;
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:magane_money/color/color_used.dart';
@@ -50,6 +52,9 @@ class AddButton extends StatelessWidget {
     return InkWell(
       onTap: () {
         showDialog(context);
+        developer.log('message',
+          name: 'increant',
+          error: 'coloi');
       },
       child: Container(
           height: 130,

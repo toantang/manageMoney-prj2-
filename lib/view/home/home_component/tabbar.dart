@@ -1,13 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:magane_money/controller/viewController/HomeController.dart';
 import 'package:magane_money/main_view/background.dart';
 import 'package:magane_money/other_things/other.dart';
 import 'package:magane_money/string/string_used.dart';
-
+import 'package:get/get.dart';
 import '../../../color/color_used.dart';
 
 /// This is the stateless widget that the main application instantiates.
 class MakeTabBar extends StatelessWidget {
+
+  final HomeController homeController = Get.find();
 
   Widget tab(BuildContext context, String typeTransaction) {
     return Container(
@@ -41,9 +44,7 @@ class MakeTabBar extends StatelessWidget {
         child: Center(
             child: Padding(
                 padding: EdgeInsets.only(left: kDefaultPaddingTabBar, right: kDefaultPaddingTabBar),
-                child: Text(typeTransaction, style: TextStyle(
-                  color: kDefaultBlack,
-                ),
+                child: Text(typeTransaction, style: TextStyle(color: kDefaultBlack,),
               )
             )
         ),
@@ -54,15 +55,16 @@ class MakeTabBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    int sizeTabBar = listTypeTrade.length;
-
     return DefaultTabController(
       initialIndex: 0,
-      length: sizeTabBar,
+      length: listTypeTrade.length,
       child: Stack(
         children: [
           TabBar(
             indicatorPadding: EdgeInsets.all(0.0),
+            onTap: (index) {
+              homeController.currentIndexTabbar = index;
+            },
             indicatorWeight: 2.0,
             labelPadding: EdgeInsets.only(left: 0.0, right: 0.0),
             indicatorSize: TabBarIndicatorSize.tab,

@@ -2,7 +2,7 @@ class Schedule {
   String _scheduleId = 'noScheduleId';
   String _userId = 'noUserId';
   String _nameSchedule = 'name schedule';
-  double _sumMoneySchedule = 0; // so tien danh cho ke hoach, limited = 10B
+  double _sumMoneySchedule = 0.0; // so tien danh cho ke hoach, limited = 10B
   DateTime _dateStartSchedule = new DateTime(2000, 3, 26);
   int _interval = 0;
   String _note = 'note schedule';

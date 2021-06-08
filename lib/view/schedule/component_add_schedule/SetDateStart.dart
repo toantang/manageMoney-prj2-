@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:magane_money/controller/viewController/AddScheduleController.dart';
+import 'file:///D:/Project%202/managemoney/lib/controller/viewController/schedule_controller/AddScheduleController.dart';
 import '../../../table_calendar.dart';
 import 'package:magane_money/color/color_used.dart';
 import 'package:magane_money/other_things/other.dart';

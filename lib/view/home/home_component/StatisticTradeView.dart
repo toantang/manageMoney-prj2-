@@ -1,11 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:magane_money/controller/model_controller/TradeController.dart';
+import 'package:magane_money/controller/viewController/HomeController.dart';
+import 'package:magane_money/string/string_used.dart';
 import 'InformationTradeView.dart';
+import 'package:get/get.dart';
 
 class StatisticTradeView extends StatelessWidget {
 
+  final HomeController homeController = Get.find();
+  final TradeController tradeController = new TradeController();
   //show Item from database
   Widget showItem(BuildContext context, DocumentSnapshot documentSnapshot) {
     return Card(
@@ -39,23 +44,26 @@ class StatisticTradeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final documentCollectionTrade = FirebaseFirestore.instance.collection('Trade').limit(11).snapshots();
+    return Obx(() {
 
-    return StreamBuilder(
-      stream: documentCollectionTrade,
-      builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (!snapshot.hasData) {
-          return Center(child: Text('Loading...'),);
-        }
-        else {
-          return ListView.builder(
-              itemCount: snapshot.data.docs.length,
-              itemBuilder: (context, index) {
-                return showItem(context, snapshot.data.docs[index]);
-              }
-          );
-        }
-      },
-    );
+      Query queryTrade = tradeController.getTradeByDateAndType(listTypeTrade[homeController.currentIndexTabbar],
+          homeController.dateStart, homeController.dateEnd);
+      return StreamBuilder(
+        stream: queryTrade.limit(11).snapshots(),
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (!snapshot.hasData) {
+            return Center(child: Text('Loading...'),);
+          }
+          else {
+            return ListView.builder(
+                itemCount: snapshot.data.docs.length,
+                itemBuilder: (context, index) {
+                  return showItem(context, snapshot.data.docs[index]);
+                }
+            );
+          }
+        },
+      );
+    });
   }
 }

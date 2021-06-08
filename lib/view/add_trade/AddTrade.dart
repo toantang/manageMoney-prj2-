@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:magane_money/color/color_used.dart';
-import 'package:magane_money/controller/viewController/addTradeController.dart';
+import 'file:///D:/Project%202/managemoney/lib/controller/viewController/trade_controller/addTradeController.dart';
 import 'package:magane_money/other_things/other.dart';
 import 'package:magane_money/string/string_used.dart';
 import 'package:magane_money/view/add_trade/component_them_giao_dich/InputNote.dart';
@@ -23,6 +23,8 @@ class AddTrade extends StatelessWidget {
       height: 60,
       child: ElevatedButton(
         onPressed: () {
+          addTradeController.getNameTypeTrade(context);
+          addTradeController.changeTypeTradeId();
           addTradeController.getMoney(context);
           addTradeController.getNote();
           addTradeController.checkAndInsertTrade(context);

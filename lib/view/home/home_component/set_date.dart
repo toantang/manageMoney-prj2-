@@ -1,10 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:magane_money/color/color_used.dart';
+import 'package:magane_money/controller/viewController/HomeController.dart';
 import 'package:magane_money/other_things/other.dart';
 import 'package:magane_money/string/string_used.dart';
+import 'package:get/get.dart';
 
 class SetDate extends StatelessWidget {
+
+  final HomeController homeController = Get.find();
 
   Widget setDateStatistic(BuildContext context) {
     return Container(
@@ -20,7 +25,9 @@ class SetDate extends StatelessWidget {
             width: MediaQuery.of(context).size.width/2.1,
             child: ListTile(
               leading: Icon(Icons.date_range, color: kDefaultDeepPurpleAccent400),
-              title: Text(kDefaultSetDateStart, style: TextStyle(color: kDefaultBlack),),
+              title: Obx(() {
+                return Text(DateFormat('yyyy/MM/dd'). format(homeController.dateStart), style: TextStyle(color: kDefaultBlack),);
+              }),
               onTap: () {
 
               },
@@ -35,7 +42,9 @@ class SetDate extends StatelessWidget {
               ),
               child: ListTile(
                 leading: Icon(Icons.date_range, color: kDefaultDeepPurpleAccent400),
-                title: Text(kDefaultSetDateEnd, style: TextStyle(color: kDefaultBlack),),
+                title: Obx(() {
+                  return Text(DateFormat('yyyy/MM/dd'). format(homeController.dateEnd), style: TextStyle(color: kDefaultBlack),);
+                }),
                 onTap: () {
 
                 },
@@ -47,80 +56,59 @@ class SetDate extends StatelessWidget {
     );
   }
 
-  List<String> _listSelect;
-  int index = 0;
-
   //Make dropdown Button select Month
   Widget makeDropDownButtonSelectDate(BuildContext context) {
-
-  List<String> list = new List();
-  DateTime dateTime = DateTime.now();
-  int monthNow = dateTime.month;
-  int yearNow = dateTime.year;
-
-  int cnt = 6;
-  int i = 0;
-  list.add('Select Month');
-  while(i < cnt) {
-    if (monthNow == 0) {
-      monthNow = 12;
-      yearNow = yearNow - 1;
-    }
-    list.add(monthNow.toString() + '/' + yearNow.toString());
-    monthNow--;
-    i++;
-
-
-    this._listSelect = list;
-    //return this._listSelect;
-  }
+    final List<String> _listDateSelect = homeController.makeListSelect();
 
     return Container(
       padding: EdgeInsets.only(top: 15),
-      child: DropdownButton(
-        value: _listSelect[index],
-        items: _listSelect.map((String value) {
-          return new DropdownMenuItem<String>(
-              value: value,
-              child: Container(
-                child: Column(
-                  children: [
-                    new Divider(
-                      height: 2.5,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 10),
-                      child: new Text(value, style: TextStyle(color: kDefaultBlack, fontSize: kDefaultFontSize-3),),
-                    ),
-                  ],
-                ),
-              )
-          );
-        }).toList(),
-        onChanged: (String val) {
-          List<String> listUserSelect = val.split('/');
-        },
-        icon: ShaderMask(
-          shaderCallback: (Rect bounds) {
-            return RadialGradient(
-              center: Alignment.topLeft,
-              radius: 0.5,
-              colors: <Color>[
-                Color(0xFF46A0AE),
-                Color(0xFF00FFCB)
-              ],
-              tileMode: TileMode.repeated,
-            ).createShader(bounds);
+      child: Obx(() {
+        return DropdownButton(
+          value: _listDateSelect[homeController.currentIndexDropdownSelected],
+          items: _listDateSelect.map((String value) {
+            return new DropdownMenuItem<String>(
+                value: value,
+                child: Container(
+                  child: Column(
+                    children: [
+                      new Divider(
+                        height: 2.5,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 10),
+                        child: new Text(value, style: TextStyle(color: kDefaultBlack, fontSize: kDefaultFontSize-3),),
+                      ),
+                    ],
+                  ),
+                )
+            );
+          }).toList(),
+          onChanged: (String val) {
+            homeController.changeValueSelectedDropdown(val);
+            homeController.changeDateSelected(val);
           },
-          child: Icon(Icons.arrow_downward),
-        ),
-        iconSize: 24,
-        elevation: 16,
-        underline: Container(
-          height: 1.5,
-          color: Colors.yellow[100],
-        ),
-      ),
+          icon: ShaderMask(
+            shaderCallback: (Rect bounds) {
+              return RadialGradient(
+                center: Alignment.topLeft,
+                radius: 0.5,
+                colors: <Color>[
+                  Color(0xFF46A0AE),
+                  Color(0xFF00FFCB)
+                ],
+                tileMode: TileMode.repeated,
+              ).createShader(bounds);
+            },
+            child: Icon(Icons.arrow_downward),
+          ),
+          iconSize: 24,
+          elevation: 16,
+          underline: Container(
+            height: 1.5,
+            color: Colors.yellow[100],
+          ),
+        );
+      }),
     );
   }
 

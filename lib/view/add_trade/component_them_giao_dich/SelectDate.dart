@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:magane_money/controller/viewController/addTradeController.dart';
+import 'file:///D:/Project%202/managemoney/lib/controller/viewController/trade_controller/addTradeController.dart';
 import 'package:get/get.dart';
 import 'package:magane_money/other_things/other.dart';
 import 'package:magane_money/color/color_used.dart';

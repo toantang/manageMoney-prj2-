@@ -1,34 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:magane_money/controller/viewController/InformationTradeController.dart';
+import 'file:///D:/Project%202/managemoney/lib/controller/viewController/trade_controller/InformationTradeController.dart';
 import 'package:magane_money/string/string_used.dart';
 import 'package:get/get.dart';
 
 class InformationTradeView extends StatelessWidget {
 
-  String idTrade;
+  final String idTrade;
   InformationTradeView({Key key, @required this.idTrade}) : super(key : key);
-  InformationTradeController informationTradeController = Get.put(InformationTradeController());
+  final InformationTradeController informationTradeController = Get.put(InformationTradeController());
 
-  void setData(DocumentSnapshot documentSnapshot) {
-    for (int index = 0; index < listKey.length; index++) {
-      var s = documentSnapshot[listKey[index]];
-      String title = 'title';
-
-      if (s.runtimeType == Timestamp){
-        title = DateFormat('dd/MM/yyyy').format(DateTime.parse(s.toDate().toString()));
-      }
-      else {
-        title = s.toString();
-      }
-
-      informationTradeController.valueUpdate[index] = title;
-    }
-  }
-
-  void updateItem(BuildContext context, int index, String title) {
+  void updateItem(BuildContext context, int index, String title, DocumentSnapshot documentSnapshot) {
     showDialog(
         context: context,
         barrierDismissible: true,
@@ -50,6 +33,11 @@ class InformationTradeView extends StatelessWidget {
                 ElevatedButton(
                     onPressed: () {
                       informationTradeController.getValueUpdate(index, title);
+                      FirebaseFirestore.instance.collection('Trade').doc(idTrade).update({
+                        listKey[index] : informationTradeController.valueUpdate[index]
+                      });
+
+                      Navigator.pop(context);
                     },
                     child: Text('YES', style: TextStyle(fontSize: 15),)
                 )
@@ -60,9 +48,9 @@ class InformationTradeView extends StatelessWidget {
     );
   }
 
-  Widget inforTrade(BuildContext context, int index, DocumentSnapshot documentSnapshot) {
+  Widget infoTrade(BuildContext context, int index, DocumentSnapshot documentSnapshot) {
     String title = informationTradeController.valueUpdate[index];
-    setData(documentSnapshot);
+    informationTradeController.setData(documentSnapshot);
 
     return Container(
       padding: EdgeInsets.only(top: 10),
@@ -76,7 +64,7 @@ class InformationTradeView extends StatelessWidget {
             informationTradeController.textEditingControllerUpdate.clear();
             informationTradeController.textEditingControllerUpdate.text = informationTradeController.valueUpdate[index];
             if (index != 5) {
-              updateItem(context, index, title);
+              updateItem(context, index, title, documentSnapshot);
               print('informationTradeController.valueUpdate[index] = ${informationTradeController.valueUpdate[index]}');
             }
           }
@@ -109,7 +97,7 @@ class InformationTradeView extends StatelessWidget {
                 child: ListView.builder(
                     itemCount: listIconInforTrade.length,
                     itemBuilder: (context, index) {
-                      return inforTrade(context, index, snapshot.data);
+                      return infoTrade(context, index, snapshot.data);
                     }
                 ),
               )

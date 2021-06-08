@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:magane_money/controller/viewController/AddScheduleController.dart';
+import 'file:///D:/Project%202/managemoney/lib/controller/viewController/schedule_controller/AddScheduleController.dart';
 import 'package:magane_money/string/string_used.dart';
 import 'package:magane_money/other_things/other.dart';
 import 'package:get/get.dart';
