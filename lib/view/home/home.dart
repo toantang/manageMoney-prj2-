@@ -24,7 +24,7 @@ class Home extends StatelessWidget {
               MakeTabBar(),
               SetDate(),
               Expanded(
-                child: StatisticTradeView(),
+                child: StatisticTradeView(idView: 0,),
               )
             ],
           )

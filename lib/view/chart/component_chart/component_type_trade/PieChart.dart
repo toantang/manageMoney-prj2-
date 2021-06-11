@@ -7,6 +7,8 @@ import 'package:get/get.dart';
 import 'package:magane_money/color/color_used.dart';
 import 'package:magane_money/controller/model_controller/TradeController.dart';
 import 'package:magane_money/controller/viewController/chart_controller/PieChartController.dart';
+import 'package:magane_money/string/string_used.dart';
+import 'package:magane_money/view/home/home_component/StatisticTradeView.dart';
 
 class MakeChart extends StatelessWidget {
   final bool typeTradeId;
@@ -15,85 +17,52 @@ class MakeChart extends StatelessWidget {
 
   MakeChart({Key key, this.typeTradeId}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 2,
-      child: Column(
+  Widget noteChartComponent(BuildContext context, int index) {
+    Widget note = Padding(
+      padding: EdgeInsets.only(left: 10, bottom: 10),
+      child: Row(
         children: [
           Container(
-            height: 300,
-            child: Expanded(child: Card(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: StreamBuilder(
-                      stream: this._tradeController.getTradeByType(typeTradeId).snapshots(),
-                      builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                        if (!snapshot.hasData) {
-                          return Center(child: Text('Loading...'),);
-                        }
-                        else {
-                          return Obx(() {
-                            return PieChart(
-                              PieChartData(
-                                  pieTouchData: PieTouchData(touchCallback: (pieTouchResponse) {
-                                    final desiredTouch = pieTouchResponse.touchInput is! PointerExitEvent;
-                                    if (desiredTouch && pieTouchResponse.touchedSection != null) {
-                                      pieChartController.touchedIndex = pieTouchResponse.touchedSection.touchedSectionIndex;
-                                    } else {
-                                      pieChartController.touchedIndex = -1;
-                                    }
-                                  }),
-                                  borderData: FlBorderData(
-                                    show: false,
-                                  ),
-                                  sectionsSpace: 0,
-                                  centerSpaceRadius: 0,
-                                  sections: showingSections(snapshot.data.docs)
-                              ),
-                            );
-                          });
-                        }
-                      },
-                    ),
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        height: 20,
-                        width: 20,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.rectangle,
-                            color: listColorPieChart[0]
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),),
+            height: 25,
+            width: 25,
+            color: listColorPieChart[index],
           ),
-          SizedBox(
-            height: 100,
-            width: 100,
-            child: Text('xin chao test'),
+          Padding(
+            padding: EdgeInsets.only(left: 20),
+            child: Text(listTypeTrade[index]),
           ),
-          SizedBox(
-            height: 100,
-            width: 100,
-            child: Text('xin chao test'),
-          )
         ],
       ),
     );
+    return note;
   }
 
+  Widget noteChart(BuildContext context) {
+    if (typeTradeId == false) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          noteChartComponent(context, 0),
+          noteChartComponent(context, 1),
+        ],
+      );
+    }
+    else {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          noteChartComponent(context, 2),
+          noteChartComponent(context, 3),
+        ],
+      );
+    }
+  }
+  
   PieChartSectionData makePieChart(double value, double radius, double fontSize, int index) {
     return PieChartSectionData(
-      color: listColorPieChart[index],
+      color: typeTradeId==false? listColorPieChart[index] : listColorPieChart[index+2],
       value: value,
       title: value.toString(),
       radius: radius,
@@ -113,5 +82,80 @@ class MakeChart extends StatelessWidget {
 
       return makePieChart(pieChartController.listPercent[i], radius, fontSize, i);
     });
+  }
+  
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Container(
+                  height: 300,
+                  child: Card(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: StreamBuilder(
+                            stream: this._tradeController.getTradeByType(typeTradeId).snapshots(),
+                            builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                              if (!snapshot.hasData) {
+                                return Center(child: Text('Loading...'),);
+                              }
+                              else {
+                                return Obx(() {
+                                  return PieChart(
+                                    PieChartData(
+                                        pieTouchData: PieTouchData(touchCallback: (pieTouchResponse) {
+                                          final desiredTouch = pieTouchResponse.touchInput is! PointerExitEvent;
+                                          int touched = pieTouchResponse.touchedSection.touchedSectionIndex;
+                                          if (desiredTouch) {
+                                            if (touched >= 0) {
+                                              pieChartController.touchedIndex = touched;
+                                            }
+                                            else {
+                                              pieChartController.touchedIndex = -5;
+                                            }
+                                          } else {
+                                            pieChartController.touchedIndex = 9;
+                                            print('touchedIndex = ${pieChartController.touchedIndex}');
+                                          }
+
+                                        }),
+                                        borderData: FlBorderData(
+                                          show: false,
+                                        ),
+                                        sectionsSpace: 0,
+                                        centerSpaceRadius: 0,
+                                        sections: showingSections(snapshot.data.docs)
+                                    ),
+                                  );
+                                });
+                              }
+                            },
+                          ),
+                        ),
+                        noteChart(context)
+                      ],
+                    ),
+                  ),
+                ),
+              this.typeTradeId==false?
+                  Obx(() {
+                    return StatisticTradeView(idView: pieChartController.touchedIndex+1,);
+                  })
+                  :
+                  Obx(() {
+                    return StatisticTradeView(idView: pieChartController.touchedIndex+3,);
+                  })
+
+            ],
+          ),
+        ),
+      ],
+    );
   }
 }

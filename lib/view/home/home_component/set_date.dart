@@ -7,10 +7,27 @@ import 'package:magane_money/other_things/other.dart';
 import 'package:magane_money/string/string_used.dart';
 import 'package:get/get.dart';
 
+import '../../../table_calendar.dart';
+
 class SetDate extends StatelessWidget {
 
   final HomeController homeController = Get.find();
+  void _setDateStart(BuildContext context) async {
+    final DateTime dateTime = await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Calendar(),
+        ));
 
+  }
+  void _setDateEnd(BuildContext context) async {
+    homeController.dateEnd = await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Calendar(),
+        ));
+
+  }
   Widget setDateStatistic(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(top: 10, left: 5, right: 5),

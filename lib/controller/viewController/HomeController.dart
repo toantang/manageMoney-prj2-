@@ -10,7 +10,7 @@ class HomeController extends GetxController {
 
   @override
   void onInit() {
-    this._dateStart.value = DateTime(dateTimeNow.year, dateTimeNow.month, dateTimeNow.day);
+    this._dateStart.value = DateTime(dateTimeNow.year, dateTimeNow.month, dateTimeNow.day - 1);
     this._dateEnd.value = DateTime(dateTimeNow.year, dateTimeNow.month, dateTimeNow.day);
     super.onInit();
   }
@@ -78,6 +78,11 @@ class HomeController extends GetxController {
     this.dateEnd = DateTime(year, month, countDayMonth(month, year));
   }
 
+  void setDate(DateTime dateStart, DateTime dateEnd) {
+    if (dateStart.isBefore(dateEnd)) {
+      
+    }
+  }
   get currentIndexDropdownSelected => _currentIndexDropdownSelected.value;
 
   set currentIndexDropdownSelected(value) {

@@ -26,6 +26,11 @@ class TradeController {
     return this._tradeCollection.where('typeTradeId', isEqualTo: typeTradeId);
   }
 
+  Query getTradeByTypeAndNameType(bool typeTradeId, String nameTypeTrade) {
+    return this._tradeCollection
+        .where('typeTradeId', isEqualTo: typeTradeId)
+        .where('nameTypeTrade', isEqualTo: nameTypeTrade);
+  }
   Query getTradeByDateAndType(String nameTypeTrade, DateTime dateStart, DateTime dateEnd) {
     Query queryTrade = this._tradeCollection.where('nameTypeTrade', isEqualTo: nameTypeTrade);
 

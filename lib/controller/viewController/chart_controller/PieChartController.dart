@@ -7,6 +7,7 @@ class PieChartController extends GetxController {
   var _touchedIndex = 0.obs;
   var _listValue = [0.0, 0.0].obs;
   var _listPercent = [0.0, 0.0].obs;
+  var _currentIndexTouchedChart = 0.obs;
   
   void getPercent(List<DocumentSnapshot> documentSnapshotList, bool typeTradeId) {
     double sumMoney = 0;
@@ -19,7 +20,6 @@ class PieChartController extends GetxController {
       double moneyTrade = documentSnapshotList[i]['moneyTrade'];
       if (typeTradeId == false) {
         //if nameTypeTrade == listTypeTrade[0] = khoản chi cố định
-
         if (nameTypeTrade == listTypeTrade[0]) {
           this.listValue[0] += moneyTrade;
         }
@@ -39,7 +39,7 @@ class PieChartController extends GetxController {
       sumMoney += moneyTrade;
     }
     
-    this.listValue.sort();
+    //this.listValue.sort();
     while(listValue[0] == 0) {
       this.listValue.removeAt(0);
     }
@@ -47,12 +47,8 @@ class PieChartController extends GetxController {
     double x = this.listValue[0]*100/sumMoney;
     this.listPercent[0] = num.parse(x.toStringAsFixed(2));
     this.listPercent[1] = 100 - this.listPercent[0];
-  }
-
-  get listPercent => _listPercent.value;
-
-  set listPercent(value) {
-    _listPercent.value = value;
+    this.listPercent[1] = num.parse(this.listPercent[1].toStringAsFixed(2));
+    print(this.listPercent);
   }
 
   get touchedIndex => _touchedIndex.value;
@@ -61,9 +57,22 @@ class PieChartController extends GetxController {
     _touchedIndex.value = value;
   }
 
+  get currentIndexTouchedChart => _currentIndexTouchedChart.value;
+
+  set currentIndexTouchedChart(value) {
+    _currentIndexTouchedChart.value = value;
+  }
+
+  get listPercent => _listPercent.value;
+
+  set listPercent(value) {
+    _listPercent.value = value;
+  }
+
   get listValue => _listValue.value;
 
   set listValue(value) {
     _listValue.value = value;
   }
+
 }

@@ -20,4 +20,4 @@ const kPrimaryGradient = LinearGradient(
 );
 
 //Color used in MakeChartView
-const List<Color> listColorPieChart = [kDefaultDeepPurpleAccent, kDefaultLightGreen600];
+const List<Color> listColorPieChart = [kDefaultDeepPurpleAccent, kDefaultLightGreen600, kDefaultBlueAccent, kDefaultDeepOrange];

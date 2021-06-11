@@ -79,6 +79,8 @@ const List<String> listUpdateItem = ["update name's trade", "update name group o
   "update money",  'update type trade', 'update note',];
 
 //String used in ChartView
-const List<String> listContentTabChartView = ['Expenditure&Turnover', 'Expenditure', 'Turnover',];
+const List<String> listContentTabChartView = ['Expenditure&Turnover',
+  'Expenditure',
+  'Turnover',];
 
 //String used in MakeChartView

@@ -28,29 +28,31 @@ class ChartView extends StatelessWidget {
         child: Scaffold(
           body: Column(
             mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              TabBar(
-                onTap: (int index) {
-                  chartController.currentIndexTabCharView = index;
-                },
-                isScrollable: true,
-                indicatorSize: TabBarIndicatorSize.tab,
-                indicatorWeight: 2.0,
-                automaticIndicatorColorAdjustment: true,
-                labelColor: kDefaultBlack,
-                tabs: [
-                  tab(context, listContentTabChartView[0]),
-                  tab(context, listContentTabChartView[1]),
-                  tab(context, listContentTabChartView[2]),
-                ],
+              Padding(
+                padding: EdgeInsets.only(left: 10),
+                child: TabBar(
+                  onTap: (int index) {
+                    chartController.currentIndexTabCharView = index;
+                  },
+                  isScrollable: true,
+                  indicatorSize: TabBarIndicatorSize.tab,
+                  indicatorWeight: 2.0,
+                  automaticIndicatorColorAdjustment: true,
+                  labelColor: kDefaultBlack,
+                  tabs: [
+                    tab(context, listContentTabChartView[0]),
+                    tab(context, listContentTabChartView[1]),
+                    tab(context, listContentTabChartView[1]),
+                  ],
+                ),
               ),
               Expanded(
                 child: Padding(
-                  padding: EdgeInsets.only(left: 20, right: 20),
+                padding: EdgeInsets.only(left: 20, right: 20, top: 10),
                   child: TabBarView(children: listView,),
                 ),
-              ),
+              )
             ],
           ),
         )
